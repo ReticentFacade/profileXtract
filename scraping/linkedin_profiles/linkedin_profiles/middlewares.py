@@ -44,7 +44,7 @@ class LinkedinProfilesDownloaderMiddleware:
         return cls(api_key=crawler.settings.get('SCRAPINGBEE_API_KEY'))
 
     def process_request(self, request, spider):
-        # return None
+        print(request.headers)
         if 'scrapingbee' in request.meta:
             # Use ScrapingBee to fetch the page
             # response = self.client.get(request.url)
@@ -52,6 +52,9 @@ class LinkedinProfilesDownloaderMiddleware:
             return scrapy.http.HtmlResponse(url = response.url, body = response.content, encoding = "utf-8")
 
     def process_response(self, request, response, spider):
+        print(f'response.status ------>', response.status)  # Print the response status code
+        print(f'response.url ------>', response.url)     # Print the response URL
+        # print(response.text)    # Print the response content
         return response
 
     def process_exception(self, request, exception, spider):
